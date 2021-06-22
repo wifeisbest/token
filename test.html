@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>The XMLHttpRequest Object</h2>
+
+    <button type="button" onclick="loadDoc()">Request data</button>
+
+    <p id="demo"></p>
+    <form action="" id="form-token"></form>
+<script>
+   
+    const form = document.getElementById('form-token');
+    form.addEventListener('submit',registerToken);
+
+    async function registerToken(e){
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        const result = await fetch('/token',{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email,
+                password
+            })
+        }).then((res)=> res.json());
+
+        
+        if(result){
+            const data = result.data.token;
+           
+
+            localStorage.setItem('name',data);
+            
+            
+        }
+    }
+   
+</script>
+</body>
+</html>

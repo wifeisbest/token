@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <h1 id="home"> This is Home Page</h1>
+    <form action="/auth/login" method="POST">
+             <div>
+                <label for="">Email</label>
+                <input  type="text" name="email" id="email">
+             </div>
+            <div>
+                <label for="">PassWord</label>
+                <input type="password" name="password" id="password">
+            </div>
+        <button type="submit" >Login</button>
+    </form>
+    <button id='getcookie' onclick="Cookie()"> getCookie</button>
+<script>
+    function Cookie(){
+       let token = getCookie('token');
+       const get =  fetch('/cokie',{
+           method: "GET",
+           headers: {
+               "Authorization": "Bearer "+token
+           }
+       }).then(data =>{console.log(data)})
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>       
+</body>
+</html>
